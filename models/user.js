@@ -19,4 +19,6 @@ var User = new Schema({
 
 User.plugin(passwordLocalMongoose);
 
-module.exports=mongoose.model('User', User);
+var User=mongoose.model('User', User);
+
+module.exports =User;
