@@ -130,7 +130,7 @@ dishRouter.route('/:dishId/comments')
     res.end('PUT operation not supported on /dishes/'
         + req.params.dishId + '/comments');
 })
-.delete(aunthenticate.verifyUser,(req, res, next) => {
+.delete(aunthenticate.verifyUser, aunthenticate.verifyAdmin,(req, res, next) => {
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null) {
@@ -180,7 +180,7 @@ dishRouter.route('/:dishId/comments/:commentId')
     res.statusCode = 403;
     res.end('POST operation not supported on /dishes/'+ req.params.dishId
         + '/comments/' + req.params.commentId);
-})/////////////////////////////////////////////task 4///////////////////////////user only allow to update or delete his own comment
+})/////////////////////////////////////////////task 4/////////////////////////// only user allow to update or delete his own comment
 .put(aunthenticate.verifyUser,(req, res, next) => {
     Dishes.findById(req.params.dishId)
 
@@ -231,7 +231,7 @@ dishRouter.route('/:dishId/comments/:commentId')
     .catch((err) => next(err));
 })      
 
-.delete(aunthenticate.verifyUser, aunthenticate.verifyAdmin,(req, res, next) => {
+.delete(aunthenticate.verifyUser, (req, res, next) => {
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
